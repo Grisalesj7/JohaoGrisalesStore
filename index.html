@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOHAO GRISALES STORE | Exclusive Streetwear</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root {
+            --accent: #d4af37; /* Dorado Lujo */
+            --bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, .brand-name {
+            font-family: 'Syncopate', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        /* --- HEADER --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .brand-name { 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            color: var(--accent); 
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            opacity: 0.8;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent);
+            opacity: 1;
+        }
+
+        .nav-icons { display: flex; gap: 20px; font-size: 1.1rem; }
+        .nav-icons i { cursor: pointer; transition: 0.3s; }
+        .nav-icons i:hover { color: var(--accent); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero h1 { font-size: clamp(2rem, 10vw, 6rem); margin-bottom: 20px; line-height: 1; }
+        .hero p { font-weight: 300; letter-spacing: 3px; margin-bottom: 30px; opacity: 0.8; }
+
+        .btn-shop {
+            padding: 15px 40px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shop:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 30px var(--accent);
+        }
+
+        /* --- PRODUCT GRID --- */
+        .container { padding: 80px 5%; }
+        .section-title { margin-bottom: 50px; border-left: 4px solid var(--accent); padding-left: 20px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 5px;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 350px;
+            background: #111;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+
+        .img-container img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: 0.6s;
+            filter: grayscale(100%);
+        }
+
+        .product-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .product-info { display: flex; justify-content: space-between; align-items: center; }
+        .product-info h3 { font-size: 0.9rem; font-weight: 400; text-transform: uppercase; }
+        .price { color: var(--accent); font-weight: 800; }
+
+        .add-cart {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-cart:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 5%;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .socials { margin-bottom: 20px; display: flex; justify-content: center; gap: 30px; }
+        .socials i { font-size: 1.5rem; transition: 0.3s; }
+        .socials i:hover { color: var(--accent); transform: scale(1.2); }
+
+        /* --- CHATBOX PREMIUM STYLE --- */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            transition: 0.3s ease;
+        }
+        
+        .chat-button:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .chat-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 480px;
+            background: #0b0b0b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .chat-container.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .chat-header {
+            background: #000;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        .chat-header-info { display: flex; align-items: center; gap: 10px; }
+        .chat-header-info .dot { width: 8px; height: 8px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 8px #00ff66; }
+        .chat-header h4 { font-family: 'Syncopate', sans-serif; font-size: 0.75rem; letter-spacing: 1px; color: var(--accent); }
+        .chat-close { background: none; border: none; color: #fff; opacity: 0.5; cursor: pointer; font-size: 1rem; }
+        .chat-close:hover { opacity: 1; }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: radial-gradient(circle at top right, rgba(212,175,55,0.02), transparent);
+        }
+
+        .msg { max-width: 80%; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; line-height: 1.4; }
+        .msg.bot { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); align-self: flex-start; color: #e0e0e0; }
+        .msg.user { background: var(--accent); color: #000; font-weight: 500; align-self: flex-end; }
+
+        .chat-options { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .opt-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .opt-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(212,175,55,0.02); }
+
+        .chat-footer {
+            padding: 15px;
+            background: #000;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-footer input {
+            flex: 1;
+            background: #121212;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .chat-footer input:focus { border-color: var(--accent); }
+        
+        .chat-footer button {
+            background: var(--accent);
+            border: none;
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .chat-footer button:hover { transform: scale(1.05); }
+
+        /* RESPONSIVO MOBILE */
+        @media (max-width: 768px) {
+            .chat-widget { bottom: 20px; right: 20px; }
+            .chat-container { width: calc(100vw - 40px); right: -10px; bottom: 75px; height: 420px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="brand-name">JOHAO GRISALES</a>
+        
+        <div class="nav-menu">
+            <a href="index.html">Inicio</a>
+            <a href="camisetas.html">Camisetas</a>
+            <a href="zapatos.html">Zapatos</a>
+        </div>
+
+        <div class="nav-icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-shopping-bag"></i>
+            <i class="fas fa-user"></i>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div data-aos="fade-up">
+            <p>NUEVA COLECCIÓN 2026</p>
+            <h1>ESTILO SIN<br><span style="color: var(--accent);">LIMITES.</span></h1>
+            <a href="#productos" class="btn-shop">Ver Colección</a>
+        </div>
+    </section>
+
+    <div class="container" id="productos">
+        <h2 class="section-title" data-aos="fade-right">DROPS EXCLUSIVOS</h2>
+        
+        <div class="grid">
+            <div class="product-card" data-aos="fade-up">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80" alt="Camiseta Premium">
+                </div>
+                <div class="product-info">
+                    <h3>Oversize Essential</h3>
+                    <span class="price">$120.000</span>
+                </div>
+                <button class="add-cart">Añadir al carrito</button>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80" alt="Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3>Dark Urban Hoodie</h3>
+                    <span class="price">$185.000</span>
+                </div>
+                <button class="add-cart">Añadir al carrito</button>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1551028711-030582d773ad?auto=format&fit=crop&w=800&q=80" alt="Chaqueta">
+                </div>
+                <div class="product-info">
+                    <h3>Cyber Leather Jacket</h3>
+                    <span class="price">$350.000</span>
+                </div>
+                <button class="add-cart">Añadir al carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="socials">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-tiktok"></i>
+            <i class="fab fa-facebook-f"></i>
+        </div>
+        <p style="font-size: 0.8rem; opacity: 0.5;">© 2026 JOHAOGRISALESSTORE. Made for the icons.</p>
+    </footer>
+
+    <!-- --- INTERACTIVE CHATBOX SYSTEM --- -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatBtn">
+            <i class="fas fa-comment-alt"></i>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="dot"></div>
+                    <h4>JG STORE BOT</h4>
+                </div>
+                <button class="chat-close" id="chatCloseBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="msg bot">
+                    Hola, gracias por visitar **JOHAO GRISALES STORE**. ¿En qué te podemos asesorar hoy con tu outfit?
+                    <div class="chat-options">
+                        <button class="opt-btn" onclick="selectOption('¿Cuánto demoran los envíos?', 'Envios')">¿Cuánto demoran los envíos?</button>
+                        <button class="opt-btn" onclick="selectOption('¿Qué métodos de pago manejan?', 'Pagos')">¿Qué métodos de pago manejan?</button>
+                        <button class="opt-btn" onclick="selectOption('Quiero hablar con un asesor', 'Asesor')">Hablar con un asesor por WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+                <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: false,
+        });
+
+        // --- CHATBOX LOGIC ---
+        const chatBtn = document.getElementById('chatBtn');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatCloseBtn = document.getElementById('chatCloseBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        chatBtn.addEventListener('click', () => chatContainer.classList.toggle('active'));
+        chatCloseBtn.addEventListener('click', () => chatContainer.classList.remove('active'));
+
+        sendBtn.addEventListener('click', handleUserMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleUserMessage();
+        });
+
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('msg', sender);
+            msgDiv.innerHTML = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleUserMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            chatInput.value = '';
+
+            setTimeout(() => {
+                let reply = "Entendido. Para darte soporte personalizado sobre stock o compras directas, puedes usar la opción de WhatsApp de nuestro menú interactivo.";
+                const lowerText = text.toLowerCase();
+
+                if (lowerText.includes('precio') || lowerText.includes('cuanto vale') || lowerText.includes('cuanto cuesta')) {
+                    reply = "Nuestros drops exclusivos van desde los **$120.000 COP** (Camisetas) hasta los **$350.000 COP** (Cyber Jackets). Revisa nuestra sección de drops para ver los valores actuales.";
+                } else if (lowerText.includes('envio') || lowerText.includes('medellin') || lowerText.includes('bogota') || lowerText.includes('cali')) {
+                    reply = "Despachamos de forma segura a todo el país. Los tiempos promedio son de 1 a 3 días hábiles en ciudades principales.";
+                } else if (lowerText.includes('pago') || lowerText.includes('nequi') || lowerText.includes('tarjeta')) {
+                    reply = "Aceptamos múltiples opciones seguras de pago: Transferencias directas, Nequi, Bancolombia y tarjetas de crédito de forma integrada.";
+                }
+                
+                appendMessage(reply, 'bot');
+            }, 800);
+        }
+
+        function selectOption(userText, type) {
+            appendMessage(userText, 'user');
+            
+            setTimeout(() => {
+                let botReply = "";
+                if(type === 'Envios') {
+                    botReply = "Hacemos envíos nacionales desde Medellín. El tiempo de entrega estándar es de 2 a 4 días hábiles dependiendo de tu ubicación. 🇨🇴";
+                } else if (type === 'Pagos') {
+                    botReply = "Manejamos transferencias electrónicas seguras (Nequi, Bancolombia) y pasarela para pagos con tarjeta. Los detalles finales los coordinas al procesar tu bolsa.";
+                } else if (type === 'Asesor') {
+                    botReply = "¡Excelente elección! Un asesor responderá todas tus dudas de tallaje y pedidos aquí: <br><br><a href='https://wa.me/573000000000' target='_blank' style='color:var(--accent); font-weight:700; text-decoration:underline;'>ABRIR WHATSAPP</a>";
+                }
+                appendMessage(botReply, 'bot');
+            }, 600);
+        }
+    </script>
+</body>
+</html>

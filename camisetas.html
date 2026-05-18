@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMISETAS | JOHAO GRISALES STORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root {
+            --accent: #d4af37; 
+            --bg: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --text: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+        
+        h1, h2, .brand-name, .category-title {
+            font-family: 'Syncopate', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-name { font-size: 1rem; color: var(--accent); text-decoration: none; letter-spacing: 3px; }
+        .nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-size: 0.8rem; letter-spacing: 1px; opacity: 0.7; }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        /* --- CATEGORY HEADER --- */
+        .page-header {
+            padding: 60px 5% 20px;
+            text-align: left;
+        }
+        .category-title { font-size: 2.5rem; margin-bottom: 10px; }
+        .breadcrumb { font-size: 0.7rem; opacity: 0.5; letter-spacing: 2px; }
+
+        /* --- MAIN LAYOUT --- */
+        .shop-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            padding: 40px 5%;
+        }
+
+        /* FILTROS */
+        .filters {
+            border-right: 1px solid rgba(255,255,255,0.05);
+            padding-right: 20px;
+        }
+        .filter-group { margin-bottom: 30px; }
+        .filter-group h4 { font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px; color: var(--accent); }
+        .filter-group label { display: block; font-size: 0.85rem; margin-bottom: 8px; opacity: 0.6; cursor: pointer; }
+        .filter-group label:hover { opacity: 1; }
+
+        /* GRID DE CAMISETAS */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .tshirt-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: 0.4s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        .tshirt-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+
+        .img-box {
+            width: 100%;
+            height: 320px;
+            background: #111;
+            overflow: hidden;
+        }
+        .img-box img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: 0.8s;
+            filter: brightness(0.8);
+        }
+        .tshirt-card:hover img { transform: scale(1.1); filter: brightness(1); }
+
+        .tshirt-info { padding: 20px; text-align: center; }
+        .tshirt-info h3 { font-size: 0.85rem; font-weight: 500; margin-bottom: 10px; letter-spacing: 1px; }
+        .price { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
+
+        .btn-add {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-add:hover { background: #fff; color: #000; font-weight: 700; }
+
+        /* --- CHATBOX PREMIUM STYLE --- */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: 0.3s ease;
+        }
+        .chat-button:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+            color: #000;
+        }
+
+        .chat-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 480px;
+            background: #0f0f0f;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .chat-container.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .chat-header {
+            background: #000;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .chat-header-info { display: flex; align-items: center; gap: 10px; }
+        .chat-header-info .dot { width: 8px; height: 8px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 8px #00ff66; }
+        .chat-header h4 { font-family: 'Syncopate', sans-serif; font-size: 0.75rem; letter-spacing: 1px; color: var(--accent); }
+        .chat-close { background: none; border: none; color: #fff; opacity: 0.5; cursor: pointer; font-size: 1rem; }
+        .chat-close:hover { opacity: 1; }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: radial-gradient(circle at top right, rgba(212,175,55,0.02), transparent);
+        }
+
+        .msg { max-width: 80%; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; line-height: 1.4; }
+        .msg.bot { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); align-self: flex-start; color: #e0e0e0; }
+        .msg.user { background: var(--accent); color: #000; font-weight: 500; align-self: flex-end; }
+
+        .chat-options { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
+        .opt-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .opt-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(212,175,55,0.02); }
+
+        .chat-footer {
+            padding: 15px;
+            background: #000;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            gap: 10px;
+        }
+        .chat-footer input {
+            flex: 1;
+            background: #151515;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .chat-footer input:focus { border-color: var(--accent); }
+        .chat-footer button {
+            background: var(--accent);
+            border: none;
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .chat-footer button:hover { transform: scale(1.05); }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .shop-container { grid-template-columns: 1fr; }
+            .filters { display: none; }
+            .category-title { font-size: 1.8rem; }
+            .chat-container { width: calc(100vw - 40px); right: -10px; bottom: 70px; height: 420px; }
+            .chat-widget { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="brand-name">JOHAO GRISALES</a>
+        <div class="nav-links">
+            <a href="index.html">INICIO</a>
+            <a href="camisetas.html" style="color: var(--accent);">CAMISETAS</a>
+            <a href="#">HOODIES</a>
+            <a href="#"><i class="fas fa-shopping-bag"></i></a>
+        </div>
+    </nav>
+
+    <header class="page-header" data-aos="fade-down">
+        <div class="breadcrumb">COLECCIÓN / TOPS</div>
+        <h1 class="category-title">Camisetas</h1>
+    </header>
+
+    <main class="shop-container">
+        <aside class="filters" data-aos="fade-right">
+            <div class="filter-group">
+                <h4>TALLA</h4>
+                <label><input type="checkbox"> PEQUEÑA</label>
+                <label><input type="checkbox"> MEDIANA</label>
+                <label><input type="checkbox"> ANCHA</label>
+                <label><input type="checkbox"> OVERSIZE</label>
+            </div>
+            <div class="filter-group">
+                <h4>COLOR</h4>
+                <label><input type="checkbox">NEGRO</label>
+                <label><input type="checkbox">BLANCO</label>
+                <label><input type="checkbox">DORADO</label>
+            </div>
+        </aside>
+
+        <section class="products-grid">
+            
+            <div class="tshirt-card" data-aos="fade-up">
+                <div class="img-box">
+                    <img src="img/WOut.jpeg" alt="T-Shirt 1">
+                </div>
+                <div class="tshirt-info">
+                    <h3>Y/OUT NEGRA</h3>
+                    <p class="price">$130.000</p>
+                </div>
+                <button class="btn-add">AÑADIR</button>
+            </div>
+
+            <div class="tshirt-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="img-box">
+                    <img src="img/HugoBoss.jpeg" alt="">
+                </div>
+                <div class="tshirt-info">
+                    <h3>HUGO BOSS</h3>
+                    <p class="price">$130.000</p>
+                </div>
+                <button class="btn-add">AÑADIR</button>
+            </div>
+
+            <div class="tshirt-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="img-box">
+                    <img src="img/Undergold.jpeg" alt="T-Shirt 3">
+                </div>
+                <div class="tshirt-info">
+                    <h3>UNDERGOLD</h3>
+                    <p class="price">$130.000</p>
+                </div>
+                <button class="btn-add">AÑADIR</button>
+            </div>
+
+            <div class="tshirt-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="img-box">
+                    <img src="img/NIKE.jpeg" alt="T-Shirt 4">
+                </div>
+                <div class="tshirt-info">
+                    <h3>NIKE</h3>
+                    <p class="price">$130.000</p>
+                </div>
+                <button class="btn-add">AÑADIR</button>
+            </div>
+
+            <div class="tshirt-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="img-box">
+                    <img src="img/WOut2.jpeg" alt="T-Shirt 4">
+                </div>
+                <div class="tshirt-info">
+                    <h3>Y/OUT BLANCA</h3>
+                    <p class="price">$130.000</p>
+                </div>
+                <button class="btn-add">AÑADIR</button>
+            </div>
+
+            <div class="tshirt-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="img-box">
+                    <img src="img/WOUTAutenthic.jpeg" alt="T-Shirt 4">
+                </div>
+                <div class="tshirt-info">
+                    <h3>Y/OUT AUTHENTIC</h3>
+                    <p class="price">$130.000</p>
+                </div>
+                <button class="btn-add">AÑADIR</button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- --- INTERACTIVE CHATBOX SYSTEM --- -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatBtn">
+            <i class="fas fa-comment-alt"></i>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="dot"></div>
+                    <h4>JG STORE BOT</h4>
+                </div>
+                <button class="chat-close" id="chatCloseBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Mensaje de bienvenida inicial -->
+                <div class="msg bot">
+                    Hola, gracias por visitar **JOHAO GRISALES STORE**. ¿En qué puedo ayudarte hoy?
+                    <div class="chat-options">
+                        <button class="opt-btn" onclick="selectOption('¿Cuánto cuestan los envíos?', 'Envios')">¿Cuánto cuestan los envíos?</button>
+                        <button class="opt-btn" onclick="selectOption('¿Tienen guía de tallas?', 'Tallas')">¿Tienen guía de tallas?</button>
+                        <button class="opt-btn" onclick="selectOption('Quiero hablar con un asesor', 'Asesor')">Quiero hablar con un asesor en WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+                <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000 });
+
+        // --- CHATBOX LOGIC ---
+        const chatBtn = document.getElementById('chatBtn');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatCloseBtn = document.getElementById('chatCloseBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // Cambiar visibilidad del chat
+        chatBtn.addEventListener('click', () => chatContainer.classList.toggle('active'));
+        chatCloseBtn.addEventListener('click', () => chatContainer.classList.remove('active'));
+
+        // Enviar mensaje manual
+        sendBtn.addEventListener('click', handleUserMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleUserMessage();
+        });
+
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('msg', sender);
+            msgDiv.innerHTML = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll abajo
+        }
+
+        function handleUserMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            chatInput.value = '';
+
+            // Respuesta automática simulada inteligente
+            setTimeout(() => {
+                let reply = "Gracias por tu mensaje. Para darte una atención personalizada e inmediata, puedes presionar la opción de hablar con un asesor o escribirnos directamente.";
+                
+                const lowerText = text.toLowerCase();
+                if (lowerText.includes('precio') || lowerText.includes('cuanto cuesta') || lowerText.includes('valor')) {
+                    reply = "Todas las camisetas del catálogo actual tienen un costo de **$130.000 COP** con excelente calidad y tallajes exclusivos.";
+                } else if (lowerText.includes('envio') || lowerText.includes('domicilio')) {
+                    reply = "Hacemos envíos nacionales seguros a toda Colombia. El valor varía según la ciudad, pero usualmente tarda de 2 a 5 días hábiles.";
+                } else if (lowerText.includes('talla') || lowerText.includes('medida')) {
+                    reply = "Manejamos tallas Pequeña, Mediana, Ancha y la línea especial **Oversize**. Si necesitas las medidas exactas de una referencia, avísanos.";
+                }
+                
+                appendMessage(reply, 'bot');
+            }, 800);
+        }
+
+        // Selección de opciones rápidas por botones
+        function selectOption(userText, type) {
+            appendMessage(userText, 'user');
+            
+            setTimeout(() => {
+                let botReply = "";
+                if(type === 'Envios') {
+                    botReply = "Hacemos envíos nacionales a toda Colombia. Al momento de procesar tu orden te confirmamos el costo exacto según tu ciudad. 🇨🇴";
+                } else if (type === 'Tallas') {
+                    botReply = "Nuestros fits varían entre cortes regulares, anchos y **Oversize**. Te sugerimos elegir tu talla habitual o una más si buscas el estilo Oversize fluido.";
+                } else if (type === 'Asesor') {
+                    botReply = "¡Perfecto! Un asesor atenderá tu pedido de inmediato. Haz clic aquí para redirigirte: <br><br><a href='https://wa.me/1234567890' target='_blank' style='color:var(--accent); font-weight:700; text-decoration:underline;'>CONECTAR CON WHATSAPP</a>";
+                }
+                appendMessage(botReply, 'bot');
+            }, 600);
+        }
+    </script>
+</body>
+</html>
