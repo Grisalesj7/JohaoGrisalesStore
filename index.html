@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOHAO GRISALES STORE | Exclusive Streetwear</title>
+    <title>JOHAO GRISALES STORE | Sitio Exclusivo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -352,13 +352,13 @@
     <section class="hero">
         <div data-aos="fade-up">
             <p>NUEVA COLECCIÓN 2026</p>
-            <h1>ESTILO SIN<br><span style="color: var(--accent);">LIMITES.</span></h1>
+            <h1>ESTILOS SIN<br><span style="color: var(--accent);">LIMITES</span></h1>
             <a href="#productos" class="btn-shop">Ver Colección</a>
         </div>
     </section>
 
     <div class="container" id="productos">
-        <h2 class="section-title" data-aos="fade-right">DROPS EXCLUSIVOS</h2>
+        <h2 class="section-title" data-aos="fade-right">ROPA EXCLUSIVA</h2>
         
         <div class="grid">
             <div class="product-card" data-aos="fade-up">
@@ -366,8 +366,8 @@
                     <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80" alt="Camiseta Premium">
                 </div>
                 <div class="product-info">
-                    <h3>Oversize Essential</h3>
-                    <span class="price">$120.000</span>
+                    <h3>Camiseta Y/OUT</h3>
+                    <span class="price">$130.000</span>
                 </div>
                 <button class="add-cart">Añadir al carrito</button>
             </div>
@@ -377,8 +377,8 @@
                     <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80" alt="Hoodie">
                 </div>
                 <div class="product-info">
-                    <h3>Dark Urban Hoodie</h3>
-                    <span class="price">$185.000</span>
+                    <h3>Zapatos Adidas</h3>
+                    <span class="price">$190.000</span>
                 </div>
                 <button class="add-cart">Añadir al carrito</button>
             </div>
@@ -388,8 +388,8 @@
                     <img src="https://images.unsplash.com/photo-1551028711-030582d773ad?auto=format&fit=crop&w=800&q=80" alt="Chaqueta">
                 </div>
                 <div class="product-info">
-                    <h3>Cyber Leather Jacket</h3>
-                    <span class="price">$350.000</span>
+                    <h3>Zapatos Nike</h3>
+                    <span class="price">$190.000</span>
                 </div>
                 <button class="add-cart">Añadir al carrito</button>
             </div>
@@ -402,7 +402,7 @@
             <i class="fab fa-tiktok"></i>
             <i class="fab fa-facebook-f"></i>
         </div>
-        <p style="font-size: 0.8rem; opacity: 0.5;">© 2026 JOHAOGRISALESSTORE. Made for the icons.</p>
+        <p style="font-size: 0.8rem; opacity: 0.5;">© 2026 JOHAOGRISALESSTORE</p>
     </footer>
 
     <!-- --- INTERACTIVE CHATBOX SYSTEM --- -->
@@ -420,7 +420,7 @@
             </div>
             <div class="chat-messages" id="chatMessages">
                 <div class="msg bot">
-                    Hola, gracias por visitar **JOHAO GRISALES STORE**. ¿En qué te podemos asesorar hoy con tu outfit?
+                    Hola, gracias por visitar JOHAO GRISALES STORE. ¿En qué te podemos asesorar hoy con tu outfit?
                     <div class="chat-options">
                         <button class="opt-btn" onclick="selectOption('¿Cuánto demoran los envíos?', 'Envios')">¿Cuánto demoran los envíos?</button>
                         <button class="opt-btn" onclick="selectOption('¿Qué métodos de pago manejan?', 'Pagos')">¿Qué métodos de pago manejan?</button>
@@ -495,7 +495,7 @@
             setTimeout(() => {
                 let botReply = "";
                 if(type === 'Envios') {
-                    botReply = "Hacemos envíos nacionales desde Medellín. El tiempo de entrega estándar es de 2 a 4 días hábiles dependiendo de tu ubicación. 🇨🇴";
+                    botReply = "Los envios en este momento,  los realizo yo, obviamente los hago de manera contraentrega";
                 } else if (type === 'Pagos') {
                     botReply = "Manejamos transferencias electrónicas seguras (Nequi, Bancolombia) y pasarela para pagos con tarjeta. Los detalles finales los coordinas al procesar tu bolsa.";
                 } else if (type === 'Asesor') {
@@ -504,6 +504,8 @@
                 appendMessage(botReply, 'bot');
             }, 600);
         }
+
+        // Le asignamos funciones de js, para que quede funcional del todo la pagina como tal
     </script>
 </body>
 </html>
